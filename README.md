@@ -109,15 +109,18 @@ Loaded into ClickHouse via Docker:
 - ontime
 
 Reference: 
+
 1.https://clickhouse.com/docs/en/getting-started/example-datasets/
+
 2.https://clickhouse.com/docs/getting-started/example-datasets/ontime
+
 3.https://clickhouse.com/docs/getting-started/example-datasets/uk_price_paid
 
 ---
 
 ## 📸 Screenshots
 
-![Logo] (frontend/images/image1)
-![Logo] (frontend/images/image2)
+![Logo] (frontend/images/image1.png)
+![Logo] (frontend/images/image2.png)
 
 ---
