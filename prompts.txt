@@ -1,0 +1,19 @@
+1. How do I build a backend using Spring Boot that supports reading from and writing to ClickHouse?
+
+2. Help me write a Java class that aggregates ByteSize and TimeDuration values from multiple rows.
+
+3. How do I create a REST API endpoint in Spring Boot that returns aggregated data from a ClickHouse table?
+
+4. How can I set up Docker Compose to run ClickHouse locally for testing my Java backend?
+
+5. What is the correct JDBC URL and driver setup to connect Java Spring Boot with a ClickHouse instance?
+
+6. How can I display results from a backend API (e.g. aggregated stats) in a simple React component?
+
+7. I’m getting a connection error between my Java backend and ClickHouse running in Docker. What should I check?
+
+8. When I fetch data from my backend to React, I get a CORS error. How can I fix this in Spring Boot?
+
+9. How do I validate that my ingested CSV data was inserted correctly into ClickHouse?
+
+10. How do I structure the frontend so a user can upload a CSV file and trigger backend ingestion?
