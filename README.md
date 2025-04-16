@@ -120,7 +120,7 @@ Reference:
 
 ## 📸 Screenshots
 
-![Logo] (frontend/images/image1.png)
-![Logo] (frontend/images/image2.png)
+![Logo](frontend/images/image1.png)
+![Logo](frontend/images/image2.png)
 
 ---
