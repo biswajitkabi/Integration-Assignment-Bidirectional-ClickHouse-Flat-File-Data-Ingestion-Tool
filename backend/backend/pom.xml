@@ -72,7 +72,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+    		<groupId>ru.yandex.clickhouse</groupId>
+    		<artifactId>clickhouse-java</artifactId>
+    		<version>0.3.2</version>
+		</dependency>
 
+		
 
 	</dependencies>
 
