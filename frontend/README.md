@@ -1,70 +1,123 @@
-# Getting Started with Create React App
+# Bidirectional Data Ingestion Tool: ClickHouse ↔ Flat File
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web-based application that enables seamless, bidirectional data ingestion between a ClickHouse database and flat files (CSV). Developed as part of a Software Engineer Intern Assignment, this tool supports both importing CSV data into ClickHouse and exporting selected ClickHouse table columns to flat files. The tool also supports JWT-based authentication for secure ClickHouse access.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+✅ Bidirectional data flow:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- ClickHouse → Flat File (CSV)
+- Flat File (CSV) → ClickHouse
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+✅ Column-level selection for export/import  
+✅ JWT token-based authentication for ClickHouse  
+✅ Schema discovery and column preview  
+✅ User-friendly React UI  
+✅ Backend powered by Java (Spring Boot)  
+✅ Dockerized ClickHouse setup with sample datasets  
+✅ Result summary and error status display
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📁 Project Structure
 
-### `npm run build`
+project-root/
+├── backend/                 # Java Spring Boot backend  
+│   └── src/main/...        # REST APIs, services, configs  
+│   └── application.properties  
+├── frontend/               # React frontend  
+│   └── src/components/     # UI Components: ConfigForm, SchemaViewer, etc.  
+│   └── src/api/            # API calls to backend  
+├── docker-compose.yml      # ClickHouse + sample datasets  
+├── README.md               # You're here  
+└── prompts.txt             # AI prompts used (see below)  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠️ Setup & Run Instructions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### ⚙️ Prerequisites
 
-### `npm run eject`
+- Java 17+
+- Node.js (v16+ recommended)
+- Docker & Docker Compose
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 🔧 1. Clone the Repository
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+git clone https://github.com/biswajitkabi/Integration-Assignment-Bidirectional-ClickHouse-Flat-File-Data-Ingestion-Tool.git  
+cd bidirectional-ingestion-tool
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+### 🐳 2. Start ClickHouse via Docker
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+docker-compose up -d
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+✅ This sets up a ClickHouse instance with uk_price_paid and ontime example datasets.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 💻 3. Run Backend (Spring Boot)
 
-### Analyzing the Bundle Size
+Navigate to backend folder:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+cd backend  
+./mvnw spring-boot:run
 
-### Making a Progressive Web App
+Ensure backend is running at http://localhost:8123
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+application.properties:
 
-### Advanced Configuration
+clickhouse.url=http://localhost:8123  
+clickhouse.database=default  
+clickhouse.user=default  
+clickhouse.jwt.token=  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+### 🖥️ 4. Run Frontend (React)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+In a separate terminal:
 
-### `npm run build` fails to minify
+cd frontend  
+npm install  
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Access the app at: http://localhost:3000
+
+---
+
+## ✅ Test Cases
+
+1. ✅ ClickHouse table → CSV (selected columns) → Verify row count  
+2. ✅ CSV → New ClickHouse table → Verify inserted data  
+3. ⚠️ (Bonus) Joined ClickHouse tables → CSV  
+4. ✅ Tested connection/auth failure handling  
+5. ✅ (Optional) Previewed first 100 rows of table  
+
+---
+
+## 🧪 Example Datasets
+
+Loaded into ClickHouse via Docker:
+
+- uk_price_paid
+- ontime
+
+Reference: 
+1.https://clickhouse.com/docs/en/getting-started/example-datasets/
+2.https://clickhouse.com/docs/getting-started/example-datasets/ontime
+3.https://clickhouse.com/docs/getting-started/example-datasets/uk_price_paid
+
+---
+
+## 📸 Screenshots
+
+![Logo] (frontend/images/image1)
+![Logo] (frontend/images/image2)
+
+---
