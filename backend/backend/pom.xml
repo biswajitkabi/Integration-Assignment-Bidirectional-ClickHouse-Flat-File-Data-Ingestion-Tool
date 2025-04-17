@@ -73,12 +73,16 @@
 		</dependency>
 
 		<dependency>
-    		<groupId>ru.yandex.clickhouse</groupId>
-    		<artifactId>clickhouse-java</artifactId>
-    		<version>0.3.2</version>
+  			<groupId>com.clickhouse</groupId>
+  			<artifactId>clickhouse-jdbc</artifactId>
+  			<version>0.4.6</version>
 		</dependency>
 
-		
+		<dependency>
+    		<groupId>com.fasterxml.jackson.core</groupId>
+    		<artifactId>jackson-databind</artifactId>
+  		</dependency>
+
 
 	</dependencies>
 

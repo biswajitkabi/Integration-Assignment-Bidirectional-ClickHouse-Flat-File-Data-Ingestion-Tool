@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { connectClickHouse } from '../services/api';
 
-function ConfigForm({ onConnected }) {
+// type onfunction = (tables: string[]) => void;
+//@ts-ignore
+function ConfigForm({ onConnect }) {
   const [config, setConfig] = useState({
     host: 'localhost',
     port: 8123,
@@ -15,12 +17,11 @@ function ConfigForm({ onConnected }) {
   };
 
   const handleSubmit = async () => {
-    try {
+   
       const tables = await connectClickHouse(config);
-      onConnected(tables);
-    } catch (err) {
-      alert('Connection Failed');
-    }
+      onConnect(tables);
+      console.log("tables", tables); // This returns list of tables
+    
   };
 
   return (

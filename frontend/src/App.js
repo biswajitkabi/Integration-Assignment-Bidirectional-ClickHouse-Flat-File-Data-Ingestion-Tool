@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import SourceSelectionPage from './pages/SourceSelectionPage';
 import ConfigForm from './components/ConfigForm';
 import SchemaViewer from './components/SchemaViewer';
-import { connectClickHouse, fetchSchema, startIngestion } from './services/api';
+import { connectClickHouse, startIngestion } from './services/api';
 
 function App() {
   const [step, setStep] = useState(1);
   const [columns, setColumns] = useState([]);
   const [selectedCols, setSelectedCols] = useState([]);
+  const [error, setError] = useState('');
 
   const handleColumnToggle = (col) => {
     setSelectedCols((prev) =>
@@ -17,19 +18,30 @@ function App() {
   };
 
   const handleConnect = async (config) => {
-    await connectClickHouse(config);
-    const schema = await fetchSchema();
-    setColumns(schema.columns); // Adjust according to backend response
-    setStep(3);
+   
+      setError('');
+      const tables = await connectClickHouse(config); 
+      console.log("tables", tables); // This returns list of tables
+      setColumns(tables); // Wrap each as object for SchemaViewer
+      setStep(3);
+   
   };
-
+  
   const handleIngest = async () => {
-    const result = await startIngestion(selectedCols);
-    console.log(result); // Show result somewhere
+    try {
+      const result = await startIngestion(selectedTable, selectedColumns, direction); // e.g., "export"
+      setIngestionStatus("Success: " + result);
+    } catch (error) {
+      setIngestionStatus("Ingestion failed: " + error.message);
+    }
   };
+  
+  
 
   return (
-    <div>
+    <div className="App" style={{ padding: '2rem' }}>
+      <h1>ClickHouse Ingestion Tool</h1>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       {step === 1 && <SourceSelectionPage onSelect={() => setStep(2)} />}
       {step === 2 && <ConfigForm onConnect={handleConnect} />}
       {step === 3 && (
@@ -39,7 +51,9 @@ function App() {
             selected={selectedCols}
             onChange={handleColumnToggle}
           />
-          <button onClick={handleIngest}>Start Ingestion</button>
+          <button onClick={handleIngest} style={{ marginTop: '1rem' }}>
+            Start Ingestion
+          </button>
         </>
       )}
     </div>
@@ -47,3 +61,5 @@ function App() {
 }
 
 export default App;
+
+

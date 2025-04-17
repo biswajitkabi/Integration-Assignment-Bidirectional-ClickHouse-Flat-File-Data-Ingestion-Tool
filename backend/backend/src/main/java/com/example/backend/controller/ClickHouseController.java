@@ -28,6 +28,34 @@ public class ClickHouseController {
         }
     }
 
+
+@Data
+static class IngestRequest {
+    private List<String> columns;
+}
+
+
+
+    // NEW: GET /api/clickhouse/tables?host=http://localhost&port=8123&database=default&user=default&token=
+@GetMapping("/tables")
+public ResponseEntity<?> getTables(
+        @RequestParam String host,
+        @RequestParam int port,
+        @RequestParam String database,
+        @RequestParam String user,
+        @RequestParam(required = false) String token
+) {
+    try {
+        Connection conn = chService.connect(host, port, database, user, token);
+        List<String> tables = chService.fetchTables(conn);
+        return ResponseEntity.ok(tables);
+    } catch (SQLException e) {
+        return ResponseEntity.status(500).body("Failed to fetch tables: " + e.getMessage());
+    }
+}
+
+
+
     @Data
     public static class ClickHouseConfig {
         private String host;

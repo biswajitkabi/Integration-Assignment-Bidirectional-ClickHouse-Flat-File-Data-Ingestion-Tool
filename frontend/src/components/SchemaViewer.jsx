@@ -4,8 +4,8 @@ import React from 'react';
 const SchemaViewer = ({ columns, selected, onChange }) => (
   <div>
     <h3>Select Columns</h3>
-    {columns.map((col) => (
-      <div key={col}>
+    {columns.map((col,index) => (
+      <div key={index}>
         <input
           type="checkbox"
           value={col}
