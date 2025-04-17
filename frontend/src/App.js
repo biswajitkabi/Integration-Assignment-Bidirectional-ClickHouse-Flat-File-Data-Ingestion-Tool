@@ -26,17 +26,18 @@ function App() {
       setStep(3);
    
   };
-  
+
   const handleIngest = async () => {
     try {
-      const result = await startIngestion(selectedTable, selectedColumns, direction); // e.g., "export"
-      setIngestionStatus("Success: " + result);
-    } catch (error) {
-      setIngestionStatus("Ingestion failed: " + error.message);
+      setError('');
+      const result = await startIngestion(selectedCols);
+      console.log(result);
+      alert('Ingestion started!');
+    } catch (err) {
+      setError('Ingestion failed.');
+      console.error('Ingestion error:', err);
     }
   };
-  
-  
 
   return (
     <div className="App" style={{ padding: '2rem' }}>
